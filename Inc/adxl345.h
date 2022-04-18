@@ -4,6 +4,6 @@
 #include "main.h"
 
 uint8_t adxlBegin(I2C_HandleTypeDef *i2cdev);
-void readAccel(float *gx, float *gy, float *gz);
+void readADXLAccel(float *gx, float *gy, float *gz);
 
 #endif /* _ADXL345_H */

@@ -8,7 +8,7 @@ _adxlBegin_ takes a pointer to the I2C Handler and returns 1 if connection was s
 _Example:_ `adxlBegin(&hi2c1);`
 
 ### Reading the sensor
-`readAccel(float *gx, float *gy, float *gz)` provides the acceleration in m/s^2 
+`readADXLAccel(float *gx, float *gy, float *gz)` provides the acceleration in m/s^2 
 
 
 

@@ -8,7 +8,7 @@
 
 #define SENSORS_GRAVITY_EARTH (9.80665F)
 
-float accel_multiplier = 0.004;
+float adxl_accel_multiplier = 0.004;
 
 static const uint8_t ADXL345_ADDR = 0x53 << 1; // Use 8-bit address
 I2C_HandleTypeDef *adxlPort;
@@ -41,7 +41,7 @@ uint8_t adxlBegin(I2C_HandleTypeDef *i2cdev)
 	return 1;
 }
 
-void readRawAccel(int16_t *x, int16_t *y, int16_t *z)
+void readADXLRawAccel(int16_t *x, int16_t *y, int16_t *z)
 {
 	uint8_t buf[6];
 	HAL_I2C_Mem_Read(adxlPort, ADXL345_ADDR, ADXL345_REG_DATAX0, 1, buf, 6,
@@ -51,11 +51,11 @@ void readRawAccel(int16_t *x, int16_t *y, int16_t *z)
 	*z = (buf[5] << 8 | buf[4]);
 }
 
-void readAccel(float *gx, float *gy, float *gz)
+void readADXLAccel(float *gx, float *gy, float *gz)
 {
 	int16_t x, y, z;
-	readRawAccel(&x, &y, &z);
-	*gx = ((float)x * accel_multiplier) * SENSORS_GRAVITY_EARTH;
-	*gy = ((float)y * accel_multiplier) * SENSORS_GRAVITY_EARTH;
-	*gz = ((float)z * accel_multiplier) * SENSORS_GRAVITY_EARTH;
+	readADXLRawAccel(&x, &y, &z);
+	*gx = ((float)x * adxl_accel_multiplier) * SENSORS_GRAVITY_EARTH;
+	*gy = ((float)y * adxl_accel_multiplier) * SENSORS_GRAVITY_EARTH;
+	*gz = ((float)z * adxl_accel_multiplier) * SENSORS_GRAVITY_EARTH;
 }
